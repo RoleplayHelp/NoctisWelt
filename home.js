@@ -8,10 +8,10 @@ class Navigator {
         window.location.href = "setting.html";
         break;
       case "profile":
-        window.location.href = "Profile/index.html";
+        window.location.href = "profile/index.html";
         break;
       case "calculator":
-        window.location.href = "Calc/index.html";
+        window.location.href = "calc/index.html";
         break;
       default:
         console.error("Trang không tồn tại:", page);
