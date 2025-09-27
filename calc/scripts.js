@@ -196,6 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   clearBtn.addEventListener("click", () => controller.clearData());
   backToHomeBtn.addEventListener("click", () => {
-    window.location.href = "../Home.html";
+    window.location.href = "../home.html";
   });
 });
