@@ -447,7 +447,7 @@ Force: ${data.force.toFixed(2)} - ${data.forceExplanation}`;
     }
 
     backToHome() {
-      window.location.href = "../Home.html";
+      window.location.href = "../home.html";
     }
 
     buildProfile() {
