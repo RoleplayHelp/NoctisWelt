@@ -1,0 +1,119 @@
+<h2 style="color: #6a5acd;">Các cơ chế chính trong Noctis Welt</h2>
+<div class="note-box">
+    <h4 style="color: #4a90e2;">1. Cơ chế lên cấp</h4>
+    <p>
+        Trong Noctis Welt, người chơi có thể lên cấp thông qua việc làm nhiệm vụ và training, farming. Việc lên cấp đồng nghĩa với chỉ số và số effect bạn sở hữu được tăng lên.
+    </p>
+    <ul>
+        <li>Khi player mới đăng ký nhân vật: Chỉ số <strong style="color: #ff6347;">200 stat</strong> và <strong style="color: #ff6347;">10 Effect</strong></li>
+        <li>Khi player lên cấp lần 1: Chỉ số <strong style="color: #ff6347;">400 stat</strong> và <strong style="color: #ff6347;">12 Effect</strong></li>
+        <li>Khi player lên cấp lần 2: Chỉ số <strong style="color: #ff6347;">800 stat</strong> và <strong style="color: #ff6347;">16 Effect</strong></li>
+    </ul>
+    <p>
+        Trong trường hợp có những lần nâng cấp tiếp theo, admin sẽ cập nhật và thông báo cho các bạn.
+    </p>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">2. Friendly Fire</h4>
+    <p>
+        <strong style="color: #ff6347;">Friendly Fire</strong> là thuật ngữ chỉ về việc một kỹ năng hỗ trợ của đồng minh có thể tác dụng tích cực tới kẻ địch, hoặc kỹ năng có hại có thể tác dụng lên đồng đội.
+    </p>
+    <ul>
+        <li>Friendly Fire khiến mọi người chơi cần phải cẩn thận hơn trong việc tung kỹ năng diện rộng, cũng như chọn vị trí để tránh không gây ảnh hưởng tiêu cực tới trận chiến.</li>
+        <li>Hãy nhớ: Kỹ năng của bạn không có mắt, nó không biết phân biệt địch ta trừ khi bạn bảo nó đâu là địch, đâu là ta.</li>
+    </ul>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">3. K.O (Knockout)</h4>
+    <p>
+        Khi một nhân vật có HP về 0, họ sẽ rơi vào trạng thái <strong style="color: #ff6347;">K.O</strong>.
+    </p>
+    <ul>
+        <li>Trong trạng thái này, nhân vật sẽ ngất và không thể làm gì được cho đến khi được gọi dậy. Đồng thời, mọi passive trong trạng thái đều không hoạt động, trừ khi có kỹ năng cho phép Passive hoạt động trong trạng thái K.O.</li>
+        <li>Để tỉnh dậy, nhân vật cần được <strong style="color: #ff6347;">Wake Up</strong> (Kỹ năng độc quyền của healer) hoặc trong vòng 5 turn không bị tấn công (Trường hợp này nhân vật sẽ tỉnh dậy với <strong style="color: #ff6347;">1 HP</strong>).</li>
+        <li>Nhân vật sẽ rơi vào trạng thái <strong style="color: #ff6347;">Dead (Chết)</strong> khi nhận đòn sát thương > <strong style="color: #ff6347;">10 dmg</strong> trong trạng thái KO.</li>
+    </ul>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">4. Debuff</h4>
+    <p>
+        Để các kỹ năng Debuff có tác dụng, người dùng cần thỏa mãn 2 yếu tố sau:
+    </p>
+    <ul>
+        <li>Điều kiện 1: Kỹ năng Debuff cần tác động trúng cơ thể đối tượng, trúng khiên hay trượt thì mặc định là không có tác dụng.</li>
+        <li>Điều kiện 2: Chỉ số <strong style="color: #ff6347;">INF</strong> của người dùng cần phải cao hơn chỉ số <strong style="color: #ff6347;">DEF</strong> của đối tượng nhận debuff, nếu không thì Debuff sẽ không có tác dụng.</li>
+    </ul>
+    <p>
+        Trong một số trường hợp đặc biệt, Admin sẽ cho phép Debuff hoạt động mà không cần thông qua điều kiện 2.
+    </p>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">5. Knockback</h4>
+    <p>
+        Khi một nhân vật nhận sát thương, họ có thể bị đẩy lùi nếu đủ điều kiện sau:
+    </p>
+    <ul>
+        <li>Điều kiện 1: Trong đòn tấn công nói rõ việc đẩy lùi.</li>
+        <li>Điều kiện 2: Sát thương đòn khi tiếp xúc cơ thể > <strong style="color: #ff6347;">POW + DEF</strong> của người chịu đòn.</li>
+    </ul>
+    <p>
+        Khoảng cách bị đẩy lùi: Sát thương đòn (sau khi đã tính qua các vật cản, trước khi tiếp xúc cơ thể) - POW - DEF, đơn vị mét.
+    </p>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">6. Hệ tấn công và hệ số kháng</h4>
+    <p>
+        Trong quá trình xây dựng profile, bạn sẽ gặp mục điền thông tin hệ số kháng, bao gồm <strong style="color: #ff6347;">Kinetic</strong>, <strong style="color: #ff6347;">Pressure</strong> và <strong style="color: #ff6347;">Force</strong>.
+    </p>
+    <ul>
+        <li>
+            Khi player tấn công, đòn tấn công được yêu cầu phải có hệ sát thương, và nó là 1 trong 3 hệ Kinetic, Pressure và Force.
+            <ul>
+                <li><strong style="color: #ff6347;">Kinetic:</strong> sát thương vật lý cơ bản, bao gồm <span style="color: #4a90e2; font-weight: bold;">Blunt</span> (đập), <span style="color: #4a90e2; font-weight: bold;">Thrust</span> (đâm/chọc), và <span style="color: #4a90e2; font-weight: bold;">Slash</span> (chém/cắt).</li>
+                <li><strong style="color: #ff6347;">Pressure:</strong> sát thương do áp lực sinh ra, thường đến từ cân nặng, lực đẩy, va chạm mạnh, áp suất.</li>
+                <li><strong style="color: #ff6347;">Force:</strong> sát thương gián tiếp hoặc phi vật chất, thường mang tính năng lượng hoặc giả tưởng (Fantasy), ví dụ: nhiệt, băng, lửa, ánh sáng, bóng tối.</li>
+            </ul>
+        </li>
+        <li>Hệ số kháng là khả năng kháng lại sát thương <strong style="color: #ff6347;">Kinetic, Pressure và Force</strong>  của nhân vật.</li>
+        <li>Người chơi được tự do lựa chọn hệ sô kháng của nhân vật, tạo nên nét riêng của nhân vật đó.</li>
+		<li>Nếu nhân vật sở hữu True Damage (Sát thương chuẩn) tấn công kẻ địch sở hữu hệ số kháng của hệ đó thấp hơn 1, <strong style="color: #ff6347;">kết quả hệ số kháng tham gia phép tính được coi là 1</strong>. Trong trường hợp kẻ địch sở hữu hệ số kháng >1, True Damage không có tác động gì cả.</li>
+    </ul>
+</div>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">7. Phản xạ</h4>
+    <p>
+        <strong style="color: #ff6347;">Khả năng phản xạ</strong> (Được quyết định bởi stat <strong style="color: #ff6347;">Ref</strong>) là một cơ chế quan trọng.
+    </p>
+    <ul>
+        <li>Việc có thể phản xạ giúp nhân vật có thể nhận ra các tình huống xảy ra xung quanh mình. Nếu một hiện tượng xảy ra với tốc độ vượt quá khả năng phản xạ của nhân vật, nhân vật sẽ không biết chuyện gì vừa xảy ra cho đến khi đã muộn.
+        <li>Trong trường hợp một nhân vật di chuyển với tốc độ <strong style="color: #4a90e2;">nhanh hơn khả năng phản xạ của bản thân</strong>, nhân vật đó có thể sẽ va vấp vào vật cản, <strong style="color: #4a90e2;">mất toàn bộ khả năng nhận biết</strong> với các hiện tượng xung quanh bản thân, dẫn đến <strong style="color: #4a90e2;">không có khả năng chủ động né tránh khi cần thiết, hoặc phanh gấp khi có vật cản</strong>,...</li>
+    </ul>
+</div>
+<br>
+
+<div class="note-box">
+    <h4 style="color: #4a90e2;">8. Chặn đòn và đối lực</h4>
+    <p>
+        <li><strong style="color: #ff6347;">Chặn đòn</strong> là dùng một hành động tấn công của bản thân va chạm với đòn tấn công của kẻ địch để triệt tiêu sát thương. Bên lớn hơn sẽ đi tiếp -> vì vậy ta có cơ chế <strong style="color: #ff6347;">Đối lực</strong>.</li>
+    </p>
+    <p>
+        <li>Đối lực Là khi hai đòn va chạm nhau, đòn có sát thương bé hơn sẽ bị triệt tiêu, lượng sát thương dư thừa sẽ đi tiếp. Trường hợp hai đòn ngang sát thương thì sẽ cùng biến mất.</li><br>
+    </p>
+    <p>
+        <li>Ví dụ: A dùng <strong style="color: #ff6347;">300 dmg</strong> để chặn đòn <strong style="color: #ff6347;">250 dmg</strong> của B. <strong style="color: #ff6347;">300 - 250 = 50</strong>, nên đòn của A giảm 250 dmg còn đòn của B biến mất. Do còn dư dmg, nên <strong style="color: #ff6347;">50 dmg</strong> đó sẽ đi tiếp và va chạm vào B</li>
+    </p>
+    <p>
+        <li>Chặn đòn và đối lực không áp dụng với sát thương mang hiệu ứng <strong style="color: #ff6347;">Piercing (Xuyên thấu)</strong>.</li>
+    </p>
+</div>

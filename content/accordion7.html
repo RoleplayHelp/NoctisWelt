@@ -1,0 +1,58 @@
+<p>
+<h4 style="color:#27F580;">Lưu ý: Group có máy tính giúp bạn có thể tính toán mà không cần nhớ chi tiết những thông tin này.</h4>
+</p>
+<br>
+<h4 style="color:#4a90e2;">1. Cách tính sát thương</h4>
+<p>
+  <code>Hp mất = (dmg nhận vào (đã qua các hiệu ứng tăng giảm sát thương) - def) * hệ số kháng</code>
+</p>
+<p>
+  <span style="color:#ff6347; font-weight: bold;">Ví dụ:</span> Nhân vật có 70 def, hệ số kháng 0.6 bị trúng 1 đòn có 170 POW (dmg), nhân vật đó sẽ mất 60 HP.
+</p>
+<p>
+  Cách tính: <code>(170 - 70) * 0.6 = 60</code>
+</p>
+<br>
+<h4 style="color:#4a90e2;">2. Cách tính hiệu ứng buff chồng với các loại buff chỉ số theo %</h4>
+<p>
+  (Áp dụng tương tự với các loại debuff giảm chỉ số tương ứng)
+</p>
+<p>
+  <span style="color:#ff6347; font-weight: bold;">Ví dụ:</span> Nhân vật A có 120 Spd được nhận 2 buff tăng 80% Spd và 30% Spd, vậy Spd của nhân vật A sẽ là: 280.8
+</p>
+<p>
+  Cách tính: <code>120 * 1.8 * 1.3 = 280.8</code>
+</p>
+<br>
+<h4 style="color:#4a90e2;">3. Cách tính hiệu ứng buff chồng với buff giảm sát thương</h4>
+<p>
+  (Áp dụng tương tự với các loại debuff tăng sát thương nhận vào tương ứng)
+</p>
+<ul>
+  <li>
+    <span style="color:#ff6347; font-weight: bold;">Ví dụ 1:</span> A nhận 150 dmg và đang có buff giảm 70% sát thương và 40% sát thương, lượng dmg A phải nhận là:
+    <p>
+      Cách tính: <code>150 x (1 - 0.7) x (1 - 0.4) = 27</code>
+    </p>
+  </li>
+  <li>
+    <span style="color:#ff6347; font-weight: bold;">Ví dụ 2:</span> B có 2 buff giảm sát thương lần lượt là giảm 200 và 270 sát thương, vậy B sẽ giảm 470 sát thương nhận vào.
+    <p>
+      Cách tính: <code>200 + 270 = 470</code>
+    </p>
+  </li>
+</ul>
+<br>
+<h4 style="color:#4a90e2;">4. Cách tính hiệu ứng buff chồng với buff hồi HP theo turn</h4>
+<p>
+  (Áp dụng tương tự với các loại debuff gây sát thương theo turn, tức DoT)
+</p>
+<p>
+  Với hiệu ứng buff chồng HP theo turn, kết quả được tính theo cấp số cộng.
+</p>
+<p>
+  <span style="color:#ff6347; font-weight: bold;">Ví dụ:</span> A nhận được 2 buff hồi 15% và 30% HP / turn, vậy A sẽ hồi 45% HP / turn.
+</p>
+<p>
+  Cách tính: <code>15% + 30% = 45%</code>
+</p>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máy tính</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="../ygg.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-actions">
+      <button id="backToHomeBtn" class="btn btn-home"><i class="fas fa-home"></i> Back to Homepage</button>
+    </div>
+  </header>
+  <main class="container">
+    <div class="calculator-accordion">
+      <div class="calculator-section">
+        <h2 class="section-title" onclick="toggleSection('calcSection')">Tính toán chỉ số sau buff và debuff <i class="fas fa-chevron-down"></i></h2>
+        <div id="calcSection" class="content-section" style="display: none;">
+          <div class="calculator">
+            <div class="form-group">
+              <label for="baseValue">Nhập giá trị ban đầu:</label>
+              <input type="number" id="baseValue" placeholder="Nhập giá trị ban đầu" min="0">
+            </div>
+            <div class="form-group">
+              <label for="buffDebuffCount">Số lượng Buff/Debuff:</label>
+              <input type="number" id="buffDebuffCount" placeholder="0" min="0" value="0">
+              <small class="help">Nhập 1 cho 1 buff/debuff, 2 cho 1 buff + 1 debuff, v.v.</small>
+            </div>
+            <div id="buffDebuffInputs" class="buff-debuff-inputs" style="display: none;">
+              <small class="help">Trong hầu hết trường hợp, giá trị dương là buff, giá trị âm là debuff.</small>
+              <div id="buffDebuffFields"></div>
+            </div>
+            <div id="result" class="result" style="display: none;">
+              <h3 class="result-title"><i class="fas fa-poll-h"></i> Kết quả tính toán</h3>
+              <p class="result-steps" id="calculationSteps"></p>
+              <p class="result-final-value"><strong>Giá trị cuối cùng: <span id="finalValue"></span></strong></p>
+              <p id="warning" class="warning" style="display: none;">Nếu bạn đang tính toán chỉ số cơ bản hoặc sát thương, giá trị sẽ là 0.</p>
+            </div>
+            <div class="form-actions">
+              <button id="clearBtn" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Xóa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calculator-section">
+        <h2 class="section-title" onclick="toggleSection('damageSection')">Tính toán sát thương nhận vào <i class="fas fa-chevron-down"></i></h2>
+        <div id="damageSection" class="content-section" style="display: none;">
+          <div id="damageCalculator" class="damage-calculator"></div>
+          <button id="addAttackBtn" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Thêm đòn tấn công</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 - Máy tính</p>
+  </footer>
+  <script src="scripts.js"></script>
+  <script src="Damage.js"></script>
+  <script>
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      const isVisible = section.style.display === "block";
+      section.style.display = isVisible ? "none" : "block";
+      const title = document.querySelector(`[onclick="toggleSection('${sectionId}')"]`);
+      const icon = title.querySelector("i");
+      icon.className = isVisible ? "fas fa-chevron-down" : "fas fa-chevron-up";
+    }
+  </script>
+</body>
+</html>

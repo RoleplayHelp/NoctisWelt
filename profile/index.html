@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="../Profile/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="../ygg.png">
+</head>
+<body>
+  <header class="header">
+    <div class="header-actions">
+      <button id="buildProfileBtn"><i class="fas fa-user-plus"></i> Build Profile</button>
+      <button id="backToHomeBtn"><i class="fas fa-home"></i> Back to Homepage</button>
+    </div>
+  </header>
+  <main class="container">
+    <div class="accordion active">
+      <div class="accordion-header">
+        <span>1. Thông tin cơ bản</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="accordion-content">
+        <div class="form-group">
+          <label for="name">Tên nhân vật *</label>
+          <input id="name" type="text" placeholder="Ví dụ: Kael" maxlength="50">
+          <small class="help">Nhập tên nhân vật (tối đa 50 ký tự).</small>
+        </div>
+
+        <div class="form-group">
+          <label>Ngày sinh *</label>
+          <div class="input-group">
+            <input id="day" type="number" min="1" max="31" placeholder="Ngày">
+            <input id="month" type="number" min="1" max="12" placeholder="Tháng">
+            <input id="year" type="number" min="0" max="979" placeholder="Năm">
+          </div>
+          <small class="help">Nhập ngày sinh theo định dạng Ngày/Tháng/Năm (Yêu cầu phải trước 15/7/979).</small>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Giới tính *</label>
+          <select id="gender">
+            <option value="">--Chọn--</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+          </select>
+          <small class="help">Chọn giới tính của nhân vật.</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="height">Chiều cao (cm)</label>
+          <input id="height" type="number" min="0" placeholder="Ví dụ: 175">
+          <small class="help">Nhập chiều cao của nhân vật.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Cân nặng (kg)</label>
+          <input id="weight" type="number" min="0" placeholder="Ví dụ: 70">
+          <small class="help">Nhập cân nặng của nhân vật.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="race">Chủng tộc *</label>
+          <select id="race">
+            <option value="">--Chọn--</option>
+            <option value="human">Con người</option>
+            <option value="spirit">Tinh linh</option>
+            <option value="angel">Thiên nhân</option>
+          </select>
+          <small class="help">Chọn chủng tộc của nhân vật.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Tiểu sử *</label>
+          <textarea id="bio" placeholder="Viết tiểu sử nhân vật..." maxlength="50000"></textarea>
+          <small class="help">Nhập tiểu sử nhân vật.</small>
+        </div>
+		
+        <div class="form-group">
+          <label for="personality">Tính cách *</label>
+          <textarea id="personality" placeholder="Viết tính cách nhân vật..." maxlength="5000"></textarea>
+          <small class="help">Nhập tính cách của nhân vật.</small>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">
+        <span>2. Chỉ số & Class</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="accordion-content">
+        <div class="form-group">
+          <label for="class">Class *</label>
+          <select id="class">
+            <option value="">--Chọn--</option>
+            <option value="warrior">Attacker</option>
+            <option value="mage">Tanker</option>
+            <option value="healer">Healer</option>
+            <option value="archer">Supporter</option>
+            <option value="scouter">Scouter</option>
+          </select>
+          <small class="help">Chọn class của nhân vật (ảnh hưởng đến chỉ số phụ).</small>
+        </div>
+
+        <div class="form-group">
+          <label for="total">Tổng chỉ số (Total)</label>
+          <input id="total" type="number" value="200">
+          <small id="unusedStats" class="info"></small>
+          <small class="help">Nhập tổng số điểm chỉ số.</small>
+        </div>
+
+        <h4>Stat Chính</h4>
+        <div class="form-group"><label for="hp">HP / Health Point</label><input id="hp" type="number" value="0"><small id="hp-help" class="help">Nhập HP (≥ 20% tổng chỉ số).</small></div>
+        <div class="form-group"><label for="spd">SPD / Speed</label><input id="spd" type="number" value="0"><small id="spd-help" class="help">Nhập SPD (10%-60% tổng chỉ số).</small></div>
+        <div class="form-group"><label for="ref">REF / Reflex</label><input id="ref" type="number" value="0"><small id="ref-help" class="help">Nhập REF (≥ 10% tổng chỉ số).</small></div>
+
+        <h4>Stat Class</h4>
+        <div class="form-group"><label for="pow">POW / Power</label><input id="pow" type="number" value="0" min="0"><small class="warning">Chủ yếu dành cho Attacker, ảnh hưởng tới sát thương của nhân vật.</small></div>
+        <div class="form-group"><label for="def">DEF / Defense</label><input id="def" type="number" value="0" min="0"><small class="warning">Chủ yếu dành cho Tanker, ảnh hưởng tới sức phòng ngự của nhân vật.</small></div>
+        <div class="form-group"><label for="grd">GRD / Guard</label><input id="grd" type="number" value="0" min="0"><small class="warning">Chủ yếu dành cho Tanker chuyên dùng shield (Shielder), ảnh hưởng tới độ bền của khiên.</small></div>
+        <div class="form-group"><label for="vit">VIT / Vital</label><input id="vit" type="number" value="0" min="0"><small class="warning">Chủ yếu dành cho Healer, ảnh hưởng tới lượng hồi phục HP của nhân vật.</small></div>
+        <div class="form-group"><label for="inf">INF / Influence</label><input id="inf" type="number" value="0" min="0"><small class="warning">Chủ yếu dành cho Supporter, ảnh hưởng tới khả năng buff/debuff của nhân vật.</small></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">
+        <span>3. Hệ Số Kháng (Kinetic / Pressure / Force)</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>  
+      <div class="accordion-content">
+		<div class="form-group">
+			<p id="unusedStats" class="info"></p>
+			<p id="resistance-difference" class="info"></p>
+		</div>	
+        <div class="form-group resistance-group">
+          <label for="kinetic">Kinetic</label>
+          <input id="kinetic" class="resistance-input" type="number" step="0.01" value="0">
+          <small id="kinetic-explanation" class="resistance-explanation"></small>
+          <small id="resistance-difference" class="info"></small>
+          <small class="help"></small>
+        </div>
+        <div class="form-group resistance-group">
+          <label for="pressure">Pressure</label>
+          <input id="pressure" class="resistance-input" type="number" step="0.01" value="0">
+          <small id="pressure-explanation" class="resistance-explanation"></small>
+          <small class="help"></small>
+        </div>
+        <div class="form-group resistance-group">
+          <label for="force">Force</label>
+          <input id="force" class="resistance-input" type="number" step="0.01" value="0">
+          <small id="force-explanation" class="resistance-explanation"></small>
+          <small class="help"></small>
+        </div>
+		<div class="form-group">
+			<p id="validationResult" class="info"></p>
+		</div>	
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">
+        <span>4. Bảng tổng kết</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="accordion-content">
+        <div id="summary"></div>
+        <p id="validationResult" class="info"></p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button id="saveBtn"><i class="fas fa-save"></i> Lưu</button>
+      <button id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+      <button id="resetBtn" class="danger"><i class="fas fa-trash"></i> Xoá</button>
+      <button id="undoBtn"><i class="fas fa-undo"></i> Hoàn tác</button>
+    </div>
+  </main>
+  <script src="../Profile/scripts.js"></script>
+</body>
+</html>

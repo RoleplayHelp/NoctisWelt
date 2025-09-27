@@ -1,0 +1,95 @@
+<section>
+    <h2 style="color: #6a5acd;">Lưu ý khi Role Combat</h2>
+    
+    <div class="note-box">
+        <h3><span style="color: #ff6347; font-weight: bold;">Không cần hoa mỹ</span></h3>
+        <p>
+            Khi role combat <span style="color: #4a90e2; font-weight: bold;">không yêu cầu</span> gì về sự cầu kỳ hay hoa mỹ trong câu văn. Cần nhất <span style="color: #ff6347; font-weight: bold;">rõ ràng, ngắn gọn</span>. Group không cấm các bạn trau chuốt câu văn nhưng hãy chắc chắn nó <span style="color: #4a90e2; font-weight: bold;">không làm đoạn role trở nên tối nghĩa, khó đọc hiểu</span>.
+        </p>
+    </div>
+
+    <div class="note-box">
+        <h3>1. <span style="color: #ff6347; font-weight: bold;">Ghi rõ hành động, thứ tự hành động</span></h3>
+        <p>
+            Cái nào hành động <span style="color: #4a90e2; font-weight: bold;">cùng lúc</span> được thì ghi là cùng lúc, cái nào <span style="color: #4a90e2; font-weight: bold;">trước cái nào sau</span> thì hãy miêu tả trước sau.
+        </p>
+        <p>
+            Ví dụ: "chạy đến điểm A và ngay sau đó chém vào đầu kẻ địch số 1".
+        </p>
+    </div>
+
+    <div class="note-box">
+        <h3>2. <span style="color: #ff6347; font-weight: bold;">Chia thành đoạn role và đoạn note</span></h3>
+        <p>
+            <span style="color: #4a90e2; font-weight: bold;">Chia ra để dễ đọc hiểu và nắm bắt nhanh chóng hành động</span>, tránh ghi số và chữ vào cùng 1 đoạn gây khó đọc và nhìn nhầm.
+        </p>
+    </div>
+
+    <div class="note-box">
+        <h3>3. <span style="color: #ff6347; font-weight: bold;">Note chỉ số, stat và skill chính xác</span></h3>
+        <p>
+            Để tiện timing cũng như biết tình trạng các skill, HP của bản thân thì việc <span style="color: #4a90e2; font-weight: bold;">note đầy đủ và chính xác gần như bắt buộc</span>.
+        </p>
+        <p>
+            Ví dụ:
+        </p>
+        <pre><code>
+A lao thẳng về trước 50m sau đó đấm móc hàm con quái vật cùng lúc bật lá chắn của bản thân.
+- Biến đi, đồ cóc ghẻ mập địch hôi hám!
+
+====
+Tốc độ di chuyển: 100
+Đòn đấm: 100 spd 150 Pow
+Pow buff x1.5 : dura 1/3
+Alpha Strike: CD 3/5
+
+=====
+Hp: 100/300
+Def: 50
+Pow: 100 x 1.5
+Spd: 100</code></pre>
+    </div>
+
+    <h2 style="color: #6a5acd;">Di chuyển</h2>
+    <p>
+        Trong Combat, bạn có thể di chuyển bất kỳ đâu và kẻ địch cũng có thể làm thế. Hãy <span style="color: #ff6347; font-weight: bold;">chú ý đến tầm dùng skill và vị trí để tránh gây luôn sát thương lên đồng đội</span>.
+    </p>
+    <p>
+        Cách khai báo di chuyển như sau:
+    </p>
+    <ul>
+        <li>
+            <strong>Cách 1:</strong> Khai báo hướng giờ và khoảng cách
+            <pre><code>
+Ví dụ khi note role:
+"Alice di chuyển 10m về hướng 12h của bản thân"
+"Alice di chuyển, cách Leo 3m về hướng 6h"</code></pre>
+        </li>
+        <li>
+            <strong>Cách 2:</strong> Dùng hệ trục tọa độ, khai báo theo hệ trục X,Y.
+            <p>X là trục ngang, viết trước dấu ",", Y là trục dọc, viết sau ","</p>
+            <pre><code>
+Ví dụ khi note role:
+"Alice di chuyển đến -3, 2"</code></pre>
+        </li>
+    </ul>
+
+    <div class="image-container">
+        <img src="image/axis1.png" alt="Sơ đồ hệ trục tọa độ X và Y">
+    </div>
+
+    <h2 style="color: #6a5acd;">Khoảng cách</h2>
+    <p>
+        Ở đây đang dùng các ô để biểu thị khoảng cách, mỗi trận thì tỷ lệ khoảng cách của mỗi ô sẽ khác nhau. Ví dụ như <span style="color: #4a90e2; font-weight: bold;">1 ô lớn = 10x10 mét, hoặc 5x5 mét</span>. Dựa vào trang web hỗ trợ thì admin sẽ cung cấp cho bạn biểu đồ để nắm các thông tin như:
+    </p>
+    <ul>
+        <li>Tầm dùng skill</li>
+        <li>Vị trí của đồng đội</li>
+        <li>Khoảng cách giữa bản thân với đồng đội, khoảng cách đồng đội với kẻ địch..vv...vv</li>
+    </ul>
+    
+    <div class="image-container">
+        <img src="image/axis2.png" alt="Sơ đồ biểu thị khoảng cách giữa các nhân vật">
+    </div>
+
+</section>

@@ -1,0 +1,301 @@
+/* Import home.css từ thư mục cha */
+@import url('../home.css');
+
+/* Cấu trúc chung */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #121212, #1f1f1f);
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+/* Header & Footer */
+.header {
+    background-color: #1f1f1f;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #333;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn-home {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-home:hover {
+    background-color: #4a90e2;
+    transform: translateY(-2px);
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    color: #888;
+    background-color: #1f1f1f;
+    margin-top: 2rem;
+}
+
+/* Accordion và Sections */
+.calculator-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calculator-section {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background: #2a2a2a;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+
+.calculator-section:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+}
+
+.section-title {
+    cursor: pointer;
+    color: #e0e0e0;
+    padding: 1.5rem;
+    background: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+
+.section-title:hover {
+    background: #444;
+}
+
+.content-section {
+    padding: 2rem;
+    background: #1f1f1f;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #bbb;
+}
+
+input, select, button {
+    font-family: 'Roboto', sans-serif;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="number"]:focus, select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
+}
+
+.help {
+    display: block;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Buff/Debuff Inputs */
+.buff-debuff-inputs {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #3a3a3a;
+}
+
+#buffDebuffFields .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px dashed #444;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+#buffDebuffFields .form-group:last-child {
+    border-bottom: none;
+}
+
+#buffDebuffFields .form-group label {
+    flex-basis: 100%;
+    margin-bottom: 5px;
+}
+
+#buffDebuffFields .form-group input {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Result Section */
+.result {
+    margin-top: 2rem;
+    padding: 20px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #4CAF50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.result-title {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.result-title .fas {
+    margin-right: 10px;
+}
+
+.result-steps {
+    font-family: monospace;
+    color: #999;
+    margin-bottom: 1rem;
+    word-break: break-all;
+}
+
+.result-final-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FFD700;
+    letter-spacing: 1px;
+}
+
+.warning {
+    color: #ff4500;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+/* Form Actions (Buttons) */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn .fas {
+    margin-right: 8px;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+}
+
+/* Damage Calculator Section */
+.damage-calculator {
+    padding: 1.5rem;
+    background: #1f1f1f;
+    border-radius: 10px;
+}
+
+.attack-group {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #3a3a3a;
+    position: relative;
+}
+
+.attack-group h3 {
+    color: #FFD700;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed #444;
+    padding-bottom: 10px;
+}
+
+.attack-group .result {
+    background: #1a1a1a;
+    border-color: #e74c3c;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
