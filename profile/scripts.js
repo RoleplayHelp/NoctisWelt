@@ -160,7 +160,8 @@ validate() {
   }
 
   // Summary Generator Class (Single Responsibility: Generate summary HTML)
-  class SummaryGenerator {
+// Thay thế toàn bộ class SummaryGenerator
+class SummaryGenerator {
     constructor(fields, summaryBox) {
       this.fields = fields;
       this.summaryBox = summaryBox;
@@ -198,6 +199,12 @@ validate() {
       if (x === 0) return "#e0e0e0"; // Không thay đổi
       if (x < 0) return "#ff9900"; // Yếu điểm
       return "#e0e0e0";
+    }
+
+    // Hàm mới để loại bỏ số 0 thừa ở phần thập phân
+    trimPercentage(value) {
+        const fixedValue = ((value) * 100).toFixed(5);
+        return parseFloat(fixedValue).toString();
     }
 
     getSummaryData() {
@@ -263,63 +270,95 @@ validate() {
         };
     }
 
-update() {
-  const data = this.getSummaryData();
-  let html = `<h3>Thông tin cơ bản</h3>
-    <p>Tên: ${this.fields.name.value || "(chưa nhập)"}</p>
-    <p>Ngày sinh: ${data.day}/${data.month}/${data.year} (Tuổi: ${data.age})</p>
-    <p>Giới tính: ${data.genderDisplay}</p>
-    <p>Chiều cao: ${data.height} cm</p>
-    <p>Cân nặng: ${data.weight} kg</p>
-    <p>Chủng tộc: ${data.raceDisplay}</p>
-    <p>Tiểu sử: ${this.fields.bio.value || "(chưa nhập)"}</p>
-    <p>Tính cách: ${this.fields.personality.value || "(chưa nhập)"}</p>
-    <hr>
-    <h3>Thông tin chỉ số</h3>
-    <p>Tổng stat: <span style="color:#4a90e2">${data.total}</span></p>
-    <p>Class: <span style="color:#4a90e2">${data.classDisplay}</span></p>
-    <p>HP thực: <span style="color:#4a90e2">${data.hpReal}</span></p>
-    <p>SPD: <span style="color:#4a90e2">${data.spd}</span></p>
-    <p>REF: <span style="color:#4a90e2">${data.ref}</span></p>`;
+    update() {
+      const data = this.getSummaryData();
+      const total = data.total;
 
-  if (data.pow > 0) html += `<p>POW: <span style="color:#4a90e2">${data.pow}</span></p>`;
-  if (data.def > 0) html += `<p>DEF: <span style="color:#4a90e2">${data.def}</span></p>`;
-  if (data.grd > 0) html += `<p>GRD: <span style="color:#4a90e2">${data.grd}</span></p>`;
-  if (data.vit > 0) html += `<p>VIT: <span style="color:#4a90e2">${data.vit}</span></p>`;
-  if (data.inf > 0) html += `<p>INF: <span style="color:#4a90e2">${data.inf}</span></p>`;
+      // Helper function to format stat and percentage
+      const formatStat = (statName, statValue, total, extraInfo = '') => {
+        // Chỉ hiển thị nếu giá trị stat > 0
+        if (statValue <= 0 || total <= 0) return ''; 
+        
+        const percentage = this.trimPercentage(statValue / total); // Dùng hàm mới
+        let statText = `${statName}: <span style="color:#4a90e2">${statValue}</span> <span style="color:red">(${percentage}%)</span>`;
+        if (extraInfo) {
+          statText += ` ${extraInfo}`;
+        }
+        return `<p>${statText}</p>`;
+      };
+      
+      let html = `<h3>Thông tin cơ bản</h3>
+        <p>Tên: ${this.fields.name.value || "(chưa nhập)"}</p>
+        <p>Ngày sinh: ${data.day}/${data.month}/${data.year} (Tuổi: ${data.age})</p>
+        <p>Giới tính: ${data.genderDisplay}</p>
+        <p>Chiều cao: ${data.height} cm</p>
+        <p>Cân nặng: ${data.weight} kg</p>
+        <p>Chủng tộc: ${data.raceDisplay}</p>
+        <p>Tiểu sử: ${this.fields.bio.value || "(chưa nhập)"}</p>
+        <p>Tính cách: ${this.fields.personality.value || "(chưa nhập)"}</p>
+        <hr>
+        <h3>Thông tin chỉ số</h3>
+        <p>Tổng stat: <span style="color:#4a90e2">${total}</span></p>
+        <p>Class: <span style="color:#4a90e2">${data.classDisplay}</span></p>`;
 
-  html += `<hr>
-    <h3>Thông tin thêm</h3>
-    <p>Phạm vi kỹ năng và tấn công tối đa: <span style="color:#4a90e2">${data.skillRange} m</span></p>
-    <p>Lượng HP tối đa có thể nhận mỗi turn từ bản thân: <span style="color:#4a90e2">${data.hpTurn} HP/ turn</span></p>`;
-  
-  if (data.classValue !== 'healer') {
-      html += `<p>Lượng HP nhận được tối đa từ Healer mỗi turn: <span style="color:#4a90e2">${data.hpTurnHealer} HP/ turn</span></p>`;
-  }
+      // Thêm HP với định dạng mới
+      if (data.hp > 0 && total > 0) {
+          const hpPercentage = this.trimPercentage(data.hp / total);
+          html += `<p>HP: <span style="color:#4a90e2">${data.hpReal}</span> <span style="color:red">(${hpPercentage}%)</span></p>`;
+      }
+      
+      // Thêm các chỉ số còn lại
+      html += formatStat('SPD', data.spd, total);
+      html += formatStat('REF', data.ref, total);
+      html += formatStat('POW', data.pow, total);
+      html += formatStat('DEF', data.def, total);
+      html += formatStat('GRD', data.grd, total);
+      html += formatStat('VIT', data.vit, total);
+      html += formatStat('INF', data.inf, total);
 
-  html += `<p>Khối lượng tối đa có thể mang thêm: <span style="color:#4a90e2">${data.carryWeight} kg</span></p>
-    <p>Tốc độ di chuyển tối đa: <span style="color:#4a90e2">${data.moveSpeed} m/s</span></p>
-    <p>Tốc độ tối đa có thể phản xạ: <span style="color:#4a90e2">${data.reactSpeed} m/s (${data.reactSpeed - 40} SPD)</span></p>`;
+      html += `<hr>
+        <h3>Thông tin thêm</h3>
+        <p>Phạm vi kỹ năng và tấn công tối đa: <span style="color:#4a90e2">${data.skillRange} m</span></p>
+        <p>Lượng HP tối đa có thể nhận mỗi turn từ bản thân: <span style="color:#4a90e2">${data.hpTurn} HP/ turn</span></p>`;
+      
+      if (data.classValue !== 'healer') {
+          html += `<p>Lượng HP nhận được tối đa từ Healer mỗi turn: <span style="color:#4a90e2">${data.hpTurnHealer} HP/ turn</span></p>`;
+      }
 
-  // Add new DEF and GRD based info
-  if (data.def > 0) {
-    html += `<p>Năng lượng chống lại lực kéo đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.def + 2) * 5} kg hoặc ${data.def} POW</span></p>`;
-  }
-  if (data.grd > 0) {
-    html += `<p>Khiên có thể chống lại lực đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.grd + 2) * 5} kg hoặc ${data.grd} POW</span></p>`;
-  }
+      html += `<p>Khối lượng tối đa có thể mang thêm: <span style="color:#4a90e2">${data.carryWeight} kg</span></p>
+        <p>Tốc độ di chuyển tối đa: <span style="color:#4a90e2">${data.moveSpeed} m/s</span></p>
+        <p>Tốc độ tối đa có thể phản xạ: <span style="color:#4a90e2">${data.reactSpeed} m/s (${data.reactSpeed - 40} SPD)</span></p>`;
 
-  html += `<hr>
-    <h3>Hệ số kháng</h3>
-    <p>Kinetic: ${data.kinetic.toFixed(2)} - <span style="color: ${data.kineticColor}">${data.kineticExplanation}</span></p>
-    <p>Pressure: ${data.pressure.toFixed(2)} - <span style="color: ${data.pressureColor}">${data.pressureExplanation}</span></p>
-    <p>Force: ${data.force.toFixed(2)} - <span style="color: ${data.forceColor}">${data.forceExplanation}</span></p>`;
+      // Add new DEF and GRD based info
+      if (data.def > 0) {
+        html += `<p>Năng lượng chống lại lực kéo đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.def + 2) * 5} kg hoặc ${data.def} POW</span></p>`;
+      }
+      if (data.grd > 0) {
+        html += `<p>Khiên có thể chống lại lực đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.grd + 2) * 5} kg hoặc ${data.grd} POW</span></p>`;
+      }
 
-  this.summaryBox.innerHTML = html;
-}
+      html += `<hr>
+        <h3>Hệ số kháng</h3>
+        <p>Kinetic: ${data.kinetic.toFixed(2)} - <span style="color: ${data.kineticColor}">${data.kineticExplanation}</span></p>
+        <p>Pressure: ${data.pressure.toFixed(2)} - <span style="color: ${data.pressureColor}">${data.pressureExplanation}</span></p>
+        <p>Force: ${data.force.toFixed(2)} - <span style="color: ${data.forceColor}">${data.forceExplanation}</span></p>`;
 
+      this.summaryBox.innerHTML = html;
+    }
+
+    // Thay thế toàn bộ phương thức generateSummaryText()
     generateSummaryText() {
         const data = this.getSummaryData();
+        const total = data.total;
+        
+        // Helper function for plain text output
+        const formatStatText = (statName, statValue, total, extraInfo = '') => {
+            // Chỉ hiển thị nếu giá trị stat > 0
+            if (statValue <= 0 || total <= 0) return '';
+            const percentage = this.trimPercentage(statValue / total); // Dùng hàm mới
+            return `\n${statName}: ${statValue} (${percentage}%) ${extraInfo}`;
+        };
+
         let text = `Thông tin cơ bản
 Tên: ${this.fields.name.value || "(chưa nhập)"}
 Ngày sinh: ${data.day}/${data.month}/${data.year} (Tuổi: ${data.age})
@@ -332,16 +371,22 @@ Tính cách: ${this.fields.personality.value || "(chưa nhập)"}
 
 Thông tin chỉ số
 Class: ${data.classDisplay}
-Tổng stat: ${data.total}
-HP thực: ${data.hpReal}
-SPD: ${data.spd}
-REF: ${data.ref}`;
+Tổng stat: ${total}`;
 
-      if (data.pow > 0) text += `\nPOW: ${data.pow}`;
-      if (data.def > 0) text += `\nDEF: ${data.def}`;
-      if (data.grd > 0) text += `\nGRD: ${data.grd}`;
-      if (data.vit > 0) text += `\nVIT: ${data.vit}`;
-      if (data.inf > 0) text += `\nINF: ${data.inf}`;
+      // Thêm HP với định dạng mới
+      if (data.hp > 0 && total > 0) {
+          const hpPercentage = this.trimPercentage(data.hp / total);
+          text += `\nHP: ${data.hpReal} (${hpPercentage}%)`;
+      }
+
+      // Thêm các chỉ số còn lại
+      text += formatStatText('SPD', data.spd, total);
+      text += formatStatText('REF', data.ref, total);
+      text += formatStatText('POW', data.pow, total);
+      text += formatStatText('DEF', data.def, total);
+      text += formatStatText('GRD', data.grd, total);
+      text += formatStatText('VIT', data.vit, total);
+      text += formatStatText('INF', data.inf, total);
 
       text += `\n
 Thông tin thêm
@@ -372,8 +417,7 @@ Force: ${data.force.toFixed(2)} - ${data.forceExplanation}`;
         
         return text;
     }
-  }
-
+}
   // Form Handler Class (Coordinates other classes, Dependency Inversion via injections)
   class FormHandler {
     constructor(fields, storage, validator, summaryGenerator, resistanceExplainer) {
