@@ -159,8 +159,6 @@ validate() {
     }
   }
 
-  // Summary Generator Class (Single Responsibility: Generate summary HTML)
-// Thay thế toàn bộ class SummaryGenerator
 class SummaryGenerator {
     constructor(fields, summaryBox) {
       this.fields = fields;
@@ -205,6 +203,28 @@ class SummaryGenerator {
     trimPercentage(value) {
         const fixedValue = ((value) * 100).toFixed(5);
         return parseFloat(fixedValue).toString();
+    }
+    
+    // [CẬP NHẬT] Hàm tính Race Passive
+    getRacePassive(raceValue) {
+        const color = "#00ffc8"; // Màu xanh ngọc nổi bật
+        let passiveText = "";
+        
+        switch (raceValue) {
+            case 'human':
+                passiveText = `6 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
+                break;
+            case 'spirit':
+                passiveText = `3 turn một lần, cho phép tự động kháng 1 debuff / hiệu ứng bất kỳ phải nhận.`;
+                break;
+            case 'angel':
+                passiveText = `Cho phép bay lượn tự do.`;
+                break;
+            default:
+                return "";
+        }
+        
+        return `<p style="color: ${color}; font-weight: bold;">Race Trait: ${passiveText}</p>`;
     }
 
     getSummaryData() {
@@ -253,9 +273,10 @@ class SummaryGenerator {
         const genderDisplay = this.getSelectText(this.fields.gender);
         const raceDisplay = this.getSelectText(this.fields.race);
         const classDisplay = this.getSelectText(this.fields.class);
+        const raceValue = this.fields.race.value; // Thêm raceValue
 
         return {
-          total, hp, spd, ref, pow, def, grd, vit, inf, classValue,
+          total, hp, spd, ref, pow, def, grd, vit, inf, classValue, raceValue, // Thêm raceValue
           hpReal, hpTurn, hpTurnHealer, skillRange, carryWeight, moveSpeed, reactSpeed,
           day, month, year, age,
           kinetic, pressure, force,
@@ -342,6 +363,10 @@ class SummaryGenerator {
         <p>Kinetic: ${data.kinetic.toFixed(2)} - <span style="color: ${data.kineticColor}">${data.kineticExplanation}</span></p>
         <p>Pressure: ${data.pressure.toFixed(2)} - <span style="color: ${data.pressureColor}">${data.pressureExplanation}</span></p>
         <p>Force: ${data.force.toFixed(2)} - <span style="color: ${data.forceColor}">${data.forceExplanation}</span></p>`;
+      
+      // [CẬP NHẬT] Thêm Race Passive
+      html += `<hr><h3>Nội tại Chủng tộc</h3>`;
+      html += this.getRacePassive(data.raceValue);
 
       this.summaryBox.innerHTML = html;
     }
@@ -357,6 +382,20 @@ class SummaryGenerator {
             if (statValue <= 0 || total <= 0) return '';
             const percentage = this.trimPercentage(statValue / total); // Dùng hàm mới
             return `\n${statName}: ${statValue} (${percentage}%) ${extraInfo}`;
+        };
+        
+        // [CẬP NHẬT] Hàm tính Race Passive cho plain text
+        const getRacePassiveText = (raceValue) => {
+            switch (raceValue) {
+                case 'human':
+                    return `6 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
+                case 'spirit':
+                    return `3 turn một lần, cho phép tự động kháng 1 debuff / hiệu ứng bất kỳ phải nhận.`;
+                case 'angel':
+                    return `Cho phép bay lượn tự do.`;
+                default:
+                    return "(Không có)";
+            }
         };
 
         let text = `Thông tin cơ bản
@@ -414,10 +453,16 @@ Hệ số kháng
 Kinetic: ${data.kinetic.toFixed(2)} - ${data.kineticExplanation}
 Pressure: ${data.pressure.toFixed(2)} - ${data.pressureExplanation}
 Force: ${data.force.toFixed(2)} - ${data.forceExplanation}`;
+      
+      // [CẬP NHẬT] Thêm Race Passive cho plain text
+      text += `\n
+Nội tại Chủng tộc
+Race Passive: ${getRacePassiveText(data.raceValue)}`;
         
         return text;
     }
 }
+
   // Form Handler Class (Coordinates other classes, Dependency Inversion via injections)
   class FormHandler {
     constructor(fields, storage, validator, summaryGenerator, resistanceExplainer) {
