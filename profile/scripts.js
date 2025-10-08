@@ -72,7 +72,8 @@ validate() {
     (parseInt(this.fields.def.value) || 0) +
     (parseInt(this.fields.grd.value) || 0) +
     (parseInt(this.fields.vit.value) || 0) +
-    (parseInt(this.fields.inf.value) || 0);
+    (parseInt(this.fields.inf.value) || 0) +
+    (parseInt(this.fields.ins.value) || 0); // [UPDATE] Thêm INS vào tổng stat đã dùng
   let unused = total - used;
 
   if (unused < 0) { this.unusedStatsBox.textContent = `Còn lại: ${unused} (Âm!)`; this.unusedStatsBox.style.color = "red"; valid = false; }
@@ -237,6 +238,7 @@ class SummaryGenerator {
         const grd = parseInt(this.fields.grd.value) || 0;
         const vit = parseInt(this.fields.vit.value) || 0;
         const inf = parseInt(this.fields.inf.value) || 0;
+        const ins = parseInt(this.fields.ins.value) || 0; // [UPDATE] Lấy stat INS
         const classValue = this.fields.class.value;
 
         const hpReal = hp * 8;
@@ -273,10 +275,10 @@ class SummaryGenerator {
         const genderDisplay = this.getSelectText(this.fields.gender);
         const raceDisplay = this.getSelectText(this.fields.race);
         const classDisplay = this.getSelectText(this.fields.class);
-        const raceValue = this.fields.race.value; // Thêm raceValue
+        const raceValue = this.fields.race.value; 
 
         return {
-          total, hp, spd, ref, pow, def, grd, vit, inf, classValue, raceValue, // Thêm raceValue
+          total, hp, spd, ref, pow, def, grd, vit, inf, ins, classValue, raceValue, // [UPDATE] Trả về INS
           hpReal, hpTurn, hpTurnHealer, skillRange, carryWeight, moveSpeed, reactSpeed,
           day, month, year, age,
           kinetic, pressure, force,
@@ -297,10 +299,9 @@ class SummaryGenerator {
 
       // Helper function to format stat and percentage
       const formatStat = (statName, statValue, total, extraInfo = '') => {
-        // Chỉ hiển thị nếu giá trị stat > 0
         if (statValue <= 0 || total <= 0) return ''; 
         
-        const percentage = this.trimPercentage(statValue / total); // Dùng hàm mới
+        const percentage = this.trimPercentage(statValue / total);
         let statText = `${statName}: <span style="color:#4a90e2">${statValue}</span> <span style="color:red">(${percentage}%)</span>`;
         if (extraInfo) {
           statText += ` ${extraInfo}`;
@@ -322,13 +323,11 @@ class SummaryGenerator {
         <p>Tổng stat: <span style="color:#4a90e2">${total}</span></p>
         <p>Class: <span style="color:#4a90e2">${data.classDisplay}</span></p>`;
 
-      // Thêm HP với định dạng mới
       if (data.hp > 0 && total > 0) {
           const hpPercentage = this.trimPercentage(data.hp / total);
           html += `<p>HP: <span style="color:#4a90e2">${data.hpReal}</span> <span style="color:red">(${hpPercentage}%)</span></p>`;
       }
       
-      // Thêm các chỉ số còn lại
       html += formatStat('SPD', data.spd, total);
       html += formatStat('REF', data.ref, total);
       html += formatStat('POW', data.pow, total);
@@ -336,6 +335,7 @@ class SummaryGenerator {
       html += formatStat('GRD', data.grd, total);
       html += formatStat('VIT', data.vit, total);
       html += formatStat('INF', data.inf, total);
+      html += formatStat('INS', data.ins, total); // [UPDATE] Hiển thị INS
 
       html += `<hr>
         <h3>Thông tin thêm</h3>
@@ -350,12 +350,17 @@ class SummaryGenerator {
         <p>Tốc độ di chuyển tối đa: <span style="color:#4a90e2">${data.moveSpeed} m/s</span></p>
         <p>Tốc độ tối đa có thể phản xạ: <span style="color:#4a90e2">${data.reactSpeed} m/s (${data.reactSpeed - 40} SPD)</span></p>`;
 
-      // Add new DEF and GRD based info
       if (data.def > 0) {
         html += `<p>Năng lượng chống lại lực kéo đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.def + 2) * 5} kg hoặc ${data.def} POW</span></p>`;
       }
       if (data.grd > 0) {
         html += `<p>Khiên có thể chống lại lực đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.grd + 2) * 5} kg hoặc ${data.grd} POW</span></p>`;
+      }
+      
+      // [UPDATE] Thêm thông tin từ INS
+      if (data.ins > 0) {
+        html += `<p>Khả năng trinh sát, phân tích của nhân vật (Insight): <span style="color:#4a90e2">${data.ins} Ins</span></p>`;
+        html += `<p>Khả năng phản trinh sát, phân tích của nhân vật (Obscurity): <span style="color:#4a90e2">${Math.round(data.ins * 0.8)} Obs</span></p>`;
       }
 
       html += `<hr>
@@ -364,7 +369,6 @@ class SummaryGenerator {
         <p>Pressure: ${data.pressure.toFixed(2)} - <span style="color: ${data.pressureColor}">${data.pressureExplanation}</span></p>
         <p>Force: ${data.force.toFixed(2)} - <span style="color: ${data.forceColor}">${data.forceExplanation}</span></p>`;
       
-      // [CẬP NHẬT] Thêm Race Passive
       html += `<hr><h3>Nội tại Chủng tộc</h3>`;
       html += this.getRacePassive(data.raceValue);
 
@@ -376,15 +380,12 @@ class SummaryGenerator {
         const data = this.getSummaryData();
         const total = data.total;
         
-        // Helper function for plain text output
         const formatStatText = (statName, statValue, total, extraInfo = '') => {
-            // Chỉ hiển thị nếu giá trị stat > 0
             if (statValue <= 0 || total <= 0) return '';
-            const percentage = this.trimPercentage(statValue / total); // Dùng hàm mới
+            const percentage = this.trimPercentage(statValue / total);
             return `\n${statName}: ${statValue} (${percentage}%) ${extraInfo}`;
         };
         
-        // [CẬP NHẬT] Hàm tính Race Passive cho plain text
         const getRacePassiveText = (raceValue) => {
             switch (raceValue) {
                 case 'human':
@@ -412,13 +413,11 @@ Thông tin chỉ số
 Class: ${data.classDisplay}
 Tổng stat: ${total}`;
 
-      // Thêm HP với định dạng mới
       if (data.hp > 0 && total > 0) {
           const hpPercentage = this.trimPercentage(data.hp / total);
           text += `\nHP: ${data.hpReal} (${hpPercentage}%)`;
       }
 
-      // Thêm các chỉ số còn lại
       text += formatStatText('SPD', data.spd, total);
       text += formatStatText('REF', data.ref, total);
       text += formatStatText('POW', data.pow, total);
@@ -426,6 +425,7 @@ Tổng stat: ${total}`;
       text += formatStatText('GRD', data.grd, total);
       text += formatStatText('VIT', data.vit, total);
       text += formatStatText('INF', data.inf, total);
+      text += formatStatText('INS', data.ins, total); // [UPDATE] Thêm INS vào text
 
       text += `\n
 Thông tin thêm
@@ -440,12 +440,17 @@ Lượng HP tối đa có thể nhận mỗi turn từ bản thân: ${data.hpTur
 Tốc độ di chuyển tối đa: ${data.moveSpeed} m/s
 Tốc độ phản xạ: ${data.reactSpeed} m/s (${data.reactSpeed -40} SPD)`;
 
-      // Add new DEF and GRD based text
       if (data.def > 0) {
         text += `\nKhả năng chống lại lực kéo đẩy của bản thân: ${data.def} POW (DMG)`;
       }
       if (data.grd > 0) {
         text += `\nKhả năng chống lại lực kéo đẩy của Khiên: ${data.grd} POW (DMG)`;
+      }
+
+      // [UPDATE] Thêm thông tin từ INS vào text
+      if (data.ins > 0) {
+        html += `<p>Khả năng trinh sát, phân tích của nhân vật (Insight): <span style="color:#4a90e2">${data.ins} Ins</span></p>`;
+        html += `<p>Khả năng phản trinh sát, phân tích của nhân vật (Obscurity): <span style="color:#4a90e2">${Math.round(data.ins * 0.8)} Obs</span></p>`;
       }
 
       text += `\n
@@ -454,7 +459,6 @@ Kinetic: ${data.kinetic.toFixed(2)} - ${data.kineticExplanation}
 Pressure: ${data.pressure.toFixed(2)} - ${data.pressureExplanation}
 Force: ${data.force.toFixed(2)} - ${data.forceExplanation}`;
       
-      // [CẬP NHẬT] Thêm Race Passive cho plain text
       text += `\n
 Nội tại Chủng tộc
 Race Passive: ${getRacePassiveText(data.raceValue)}`;
@@ -593,6 +597,7 @@ Race Passive: ${getRacePassiveText(data.raceValue)}`;
       this.fields.grd.value = 0;
       this.fields.vit.value = 0;
       this.fields.inf.value = 0;
+      this.fields.ins.value = 0; // [UPDATE] INS mặc định là 0 trong build profile
 
       // Set resistances to sum to exactly 0
       const kinetic = Math.round((Math.random() * 1.5) * 100) / 100; 
@@ -680,6 +685,7 @@ Race Passive: ${getRacePassiveText(data.raceValue)}`;
     grd: document.getElementById("grd"),
     vit: document.getElementById("vit"),
     inf: document.getElementById("inf"),
+    ins: document.getElementById("ins"), // [UPDATE] Thêm ins vào fields
     kinetic: document.getElementById("kinetic"),
     pressure: document.getElementById("pressure"),
     force: document.getElementById("force")
