@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	loadContent('./content/role-guide.html', 'accordion-content-8');
 	loadContent('./content/build-profile-guide.html', 'accordion-content-9');
     loadContent('./content/main-mechanics.html', 'accordion-content-10');
+	loadContent('./content/deadline.html', 'accordion-content-deadline')
 	
 
     // Xử lý chức năng đóng mở của các accordion

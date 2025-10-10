@@ -1,0 +1,182 @@
+<style>
+    /* Các style này được thiết kế để phù hợp với theme tối của setting.css.
+      Chúng sẽ áp dụng cho các phần tử trong file này khi được tải vào trang chính.
+    */
+    .deadline-container {
+        color: #f0f0f0; /* Màu chữ chính cho theme tối */
+    }
+
+    /* Tùy chỉnh các tiêu đề */
+    .deadline-container h1 {
+        color: #6a5acd;
+        border-bottom-color: #444; /* Đường viền tối hơn */
+    }
+    .deadline-container h2 {
+        color: #4a90e2; /* Màu nhấn chính */
+        border-left-color: #4a90e2;
+    }
+    .deadline-container h3 {
+        color: #ff6347; /* Màu nhấn phụ */
+    }
+    .deadline-container h4 {
+        color: #4a90e2;
+        border-bottom: 1px dashed #4a90e2;
+    }
+
+    /* Các hộp thông báo với nền tối */
+    .dark-theme-box {
+        padding: 15px;
+        border: 1px solid #444; /* Viền tối */
+        border-radius: 8px;
+        margin-bottom: 25px;
+        background-color: #2a2a2a; /* Nền tối giống note-box */
+    }
+
+    /* Bảng với theme tối */
+    .dark-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 25px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .dark-table thead {
+        background-color: #4a90e2; /* Giữ nguyên màu header của bảng */
+        color: white;
+    }
+    .dark-table td, .dark-table th {
+        padding: 12px;
+        border: 1px solid #333; /* Đường kẻ bảng tối hơn */
+    }
+    .dark-table tbody {
+        background-color: #2a2a2a;
+    }
+
+    /* Khối công thức */
+    .formula-block {
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        background-color: #2a2a2a;
+        border-radius: 5px;
+        border: 1px solid #444;
+    }
+
+    /* Hộp ví dụ */
+    .example-box {
+        padding: 15px;
+        border: 1px solid #333;
+        border-left: 5px solid #ff6347;
+        background-color: #2a2a2a;
+        border-radius: 5px;
+        margin-bottom: 25px;
+    }
+
+    /* Đường kẻ ngang */
+    .deadline-container hr {
+        border-top: 1px solid #333;
+    }
+</style>
+
+<section class="deadline-container">
+    <h1>CƠ CHẾ VẬN HÀNH VÀ HỆ THỐNG THƯỞNG/PHẠT MỚI</h1>
+
+    <h2 style="color: #ff6347; border-left-color: #ff6347;">I. Lời Giới Thiệu (Tôn Trọng Deadline)</h2>
+    <div class="dark-theme-box">
+        <p>Nhóm Role-playing được lập ra với mục đích chính là <span style="font-weight: bold; color: #4a90e2;">giải trí</span> và <span style="font-weight: bold; color: #4a90e2;">tạo ra những câu chuyện hấp dẫn</span>. Để ngọn lửa sáng tạo được duy trì, mỗi thành viên cần có sự <span style="font-weight: bold; color: #4a90e2;">đầu tư công sức và sự tôn trọng</span> đối với trải nghiệm chung.</p>
+        <p>Việc tuân thủ <strong style="color: #ff6347; font-size: 1.1em;">nguyên tắc Deadline</strong> là cách hiệu quả nhất để giữ lửa cho chính bản thân bạn và các đồng đội đang chờ đợi lượt chơi của mình.</p>
+    </div>
+
+    <h2>II. Hệ Thống Tiền Tệ Mới: Điểm Cống Hiến (DP)</h2>
+    <div class="dark-theme-box">
+        <h4>Điểm Cống Hiến (Devotion Point - DP)</h4>
+        <ul>
+            <li><span style="font-weight: bold;">Mô Tả:</span> DP đại diện cho <strong style="color: #ff6347;">thành tựu</strong> và <strong style="color: #ff6347;">sự cống hiến</strong> của nhân vật sau khi hoàn thành các nhiệm vụ Combat.</li>
+            <li><span style="font-weight: bold;">Vai Trò:</span> Dùng để <strong style="color: #4a90e2;">mua sắm các vật phẩm hỗ trợ</strong> (Trang Bị, vật phẩm tiêu hao,...) nhằm chuẩn bị cho các cuộc phiêu lưu tiếp theo.</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>III. Cơ Chế Giới Hạn Thời Gian: Deadline và Thưởng/Phạt</h2>
+
+    <h3>1. Quy Tắc Deadline Cơ Bản</h3>
+    <table class="dark-table">
+        <thead>
+            <tr>
+                <th>Loại Nhiệm Vụ</th>
+                <th>Thời Hạn Tối Đa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Non-combat (Đối thoại, giải đố...)</td>
+                <td><strong style="color: #ff6347;">48 giờ</strong></td>
+            </tr>
+            <tr>
+                <td>Combat (Chiến đấu)</td>
+                <td><strong style="color: #ff6347;">24 giờ</strong> (Qua Turn)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2. Cơ Chế Thưởng Chung</h3>
+    <p>Thưởng cho Quest Combat (<strong style="color: #4a90e2;">DP Quest Base</strong>) sẽ được cộng thêm các Bonus/Phạt tích lũy:</p>
+    <p class="formula-block">
+        <code style="color: #ff6347;">Tổng DP Thực Nhận = DP Quest Base x (100% + Bonus Non-combat + Bonus Combat - Phạt Quy Định)</code>
+    </p>
+
+    <h3>3. Chi Tiết Thưởng/Phạt</h3>
+    <div style="display: flex; gap: 20px; margin-top: 20px;">
+        <div class="dark-theme-box" style="flex: 1;">
+            <h4 style="border-bottom-style: solid;">A. NON-COMBAT BONUS (48H)</h4>
+            <ul>
+                <li><strong style="color: #4a90e2;">Hoàn thành Siêu Tốc (&lt; 36h):</strong> <span style="color: lightgreen; font-weight: bold;">+50%</span> DP Base</li>
+                <li><strong style="color: #4a90e2;">Hoàn thành Đúng Hạn (trong 48h):</strong> <span style="color: lightgreen; font-weight: bold;">+20%</span> DP Base</li>
+                <li><strong style="color: #4a90e2;">Hoàn thành Trễ Hạn (> 48h):</strong> <span style="color: #ff8a8a; font-weight: bold;">-50%</span> DP Base</li>
+            </ul>
+        </div>
+
+        <div class="dark-theme-box" style="flex: 1;">
+            <h4 style="border-bottom-style: solid;">B. COMBAT BONUS/PHẠT (24H/TURN)</h4>
+            <ul>
+                <li><strong style="color: #4a90e2;">Hoàn thành Sớm Nhất (&lt; 12h):</strong> <span style="color: lightgreen; font-weight: bold;">+20%</span> Bonus cho Turn đó.</li>
+                <li><strong style="color: #4a90e2;">Hoàn thành Sớm (12h - 24h):</strong> <span style="color: lightgreen; font-weight: bold;">+10%</span> Bonus cho Turn đó.</li>
+                <li><strong style="color: #4a90e2;">Hoàn thành Trễ/Skip (> 24h/Skip):</strong> <span style="color: #ff8a8a; font-weight: bold;">-5%</span> tổng thưởng <strong style="color: #ff6347;">cho mỗi người</strong> trễ/skip không phép.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 30px;">4. Ví Dụ Tính Toán Chi Tiết</h3>
+    <div class="example-box">
+        <p><span style="font-weight: bold; color: #4a90e2;">Tình huống:</span></p>
+        <ul>
+            <li>Quest Non-combat hoàn thành trong 12 giờ (Được cộng <strong style="color: #4a90e2;">+20% Non-combat Bonus</strong>).</li>
+            <li>Combat Quest hoàn thành với tổng <strong style="color: #4a90e2;">Bonus là +40%</strong> (tích lũy từ các Turn).</li>
+            <li>Có 3 người chơi bị phạt Skip không xin phép (Tổng Phạt: <strong style="color: #ff6347;">-15%</strong>).</li>
+            <li>DP Quest Base: <strong style="color: #ff6347;">80 DP</strong>.</li>
+        </ul>
+        <hr style="margin: 10px 0;">
+        <p><span style="font-weight: bold; color: #4a90e2;">1. Tính Tổng Bonus/Phạt:</span></p>
+        <div style="padding-left: 20px;">
+            <p style="margin: 5px 0;"><span style="font-weight: bold;">Công thức:</span> Bonus Non-combat + Bonus Combat - Phạt Skip</p>
+            <p style="margin: 5px 0;"><span style="font-weight: bold; color: #4a90e2;">Kết quả:</span> 20% + 40% - 15% = <strong style="color: #4a90e2;">45%</strong></p>
+        </div>
+        <p><span style="font-weight: bold; color: #4a90e2;">2. Tính Lượng DP Thực Nhận:</span></p>
+        <div style="padding-left: 20px;">
+            <p style="margin: 5px 0;"><span style="font-weight: bold;">Công thức:</span> DP Base x (100% + Tổng Bonus/Phạt)</p>
+            <p style="margin: 5px 0;"><span style="font-weight: bold; color: #ff6347; font-size: 1.1em;">Kết quả:</span> 80 x (100% + 45%) = <strong style="color: #ff6347;">116 DP</strong></p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>IV. Quy Tắc Miễn Trừ Trễ/Skip Turn</h2>
+    <div class="dark-theme-box">
+        <p>Việc Trễ Role hoặc Skip Turn sẽ <strong style="color: #ff6347;">không bị tính phạt</strong> khi đáp ứng được <strong style="color: #4a90e2;">một trong hai yêu cầu</strong> sau:</p>
+        <ol style="margin-top: 10px; padding-left: 20px;">
+            <li style="margin-bottom: 10px;">Đã <strong style="color: #4a90e2;">xin phép Admin hoặc GM</strong> về việc Skip/Trễ Role trong Turn cụ thể đó.</li>
+            <li style="margin-bottom: 10px;">Đã <strong style="color: #4a90e2;">nhờ người chơi khác Role hộ</strong> và người được nhờ đã hoàn thành Role-post <strong style="color: #ff6347;">đúng hạn Deadline</strong>.</li>
+        </ol>
+    </div>
+</section>
