@@ -1,0 +1,75 @@
+<div class="note-box">
+    <h4><i class="fas fa-info-circle" style="color: #4a90e2;"></i> Tổng Quan Các Bản Cập Nhật</h4>
+    <p>Nhấp vào tiêu đề bản cập nhật để xem chi tiết các thay đổi về cân bằng và cơ chế.</p>
+</div>
+
+<hr>
+
+<details class="patch-details">
+    <summary style="font-weight: 600; padding: 1rem 1.2rem; background-color: #2a2a2a; cursor: pointer; border-radius: 5px;">
+        <span data-index="1.0">Bản Cập Nhật ngày <strong style="color: #FF6347;">20/10/2025</strong></span>
+        </summary>
+    
+    <div style="padding: 1.2rem; border-top: 1px solid #333;">
+        
+        <div class="note-box">
+            <h4><i class="fas fa-calendar-alt" style="color: #FFD700;"></i> Các Thay Đổi Quan Trọng</h4>
+            <p>Vui lòng đọc kỹ 3 mục chi tiết dưới đây để nắm rõ những điều chỉnh.</p>
+        </div>
+
+        <h2 style="color: #6a5acd;"><i class="fas fa-balance-scale"></i> 1. Cập Nhật Race Trait (Đặc Tính Chủng Tộc)</h2>
+        <ul>
+            <li>
+                <strong>Tinh Linh (Elf):</strong> Trait được cập nhật thành: Tăng <strong style="color: #FFD700;">25%</strong> <span style="color: #FF6347;">Max HP</span> (hệ số nhân tối đa tăng từ <strong style="color: #FFD700;">x8</strong> lên <strong style="color: #FFD700;">x10</strong>).
+            </li>
+            <li>
+                <strong>Con Người (Human):</strong> Thời gian <span style="color: #FF6347;">Cooldown</span> giảm từ <strong style="color: #FFD700;">6 lượt</strong> về <strong style="color: #FFD700;">5 lượt</strong>.
+            </li>
+        </ul>
+		<br>
+
+        <h2 style="color: #6a5acd;"><i class="fas fa-skull-crossbones"></i> 2. Cơ Chế Gây Debuff</h2>
+        <p>Cơ chế xuyên thấu của Debuff được làm rõ và cập nhật để tăng tính ổn định:</p>
+        <ul>
+            <li>
+                Giá trị xuyên của Debuff mặc định là <strong style="color: #FFD700;">100%</strong> chỉ số <span style="color: #FF6347;">INF</span> của người gây Debuff hoặc <strong style="color: #FFD700;">100%</strong> <span style="color: #FF6347;">POW / DMG</span> nếu đó là đòn tấn công có kèm theo debuff từ bộ skill của bản thân.
+            </li>
+			<li>
+                Nếu nguồn gốc debuff trong đòn tấn công là <strong style="color: #FFD700;">do supporter buff cho</strong>, giá trị xuyên sẽ là <strong style="color: #FFD700;">80%</strong>% chỉ số <strong style="color: #FFD700;">INF của supporter đó</strong>.
+            </li>
+            <li>
+                Debuff giờ sẽ mặc định <strong>không bị phá hủy</strong> bởi đòn tấn công (<span style="color: #FF6347;">Dmg</span>), khiên (<span style="color: #FF6347;">Grd</span>) và phòng thủ (<span style="color: #FF6347;">Def</span>) nếu:
+                <ul>
+                    <li>Khả năng xuyên của Debuff <strong>cao hơn</strong> giá trị <span style="color: #FF6347;">Dmg</span> của đòn tấn công (> <span style="color: #FF6347;">Dmg</span>), hoặc độ bền <span style="color: #FF6347;">Grd</span> của khiên (> <span style="color: #FF6347;">Grd</span>), hoặc chỉ số <span style="color: #FF6347;">Def</span> (> <span style="color: #FF6347;">Def</span>).</li>
+                    <li>Khả năng xuyên của Debuff <strong>sẽ không bị giảm</strong> nếu đi qua nhiều nhân tố chặn (<span style="color: #FF6347;">Dmg</span>, <span style="color: #FF6347;">Grd</span>, <span style="color: #FF6347;">Def</span>) có giá trị thấp hơn khả năng xuyên của Debuff.
+                        <br>
+                        <span style="color: #4a90e2;">Ví dụ:</span> Một Debuff có giá trị xuyên <strong style="color: #FFD700;">200 <span style="color: #FF6347;">INF</span></strong> sẽ xuyên qua <strong style="color: #FFD700;">3 lớp</strong> phòng thủ có <span style="color: #FF6347;">Def</span> lần lượt là <strong style="color: #FFD700;">100, 190, 150</strong> và vẫn gây Debuff bình thường. Tuy nhiên, Debuff sẽ bị chặn hoàn toàn bởi đối tượng có <span style="color: #FF6347;">Def</span> từ <strong style="color: #FFD700;">200</strong> trở lên.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+		<br>
+
+        <h2 style="color: #6a5acd;"><i class="fas fa-bolt"></i> 3. Phản Xạ (Reflex)</h2>
+        <p>Cập nhật giới hạn và bổ sung cơ chế phản xạ chậm:</p>
+        <ul>
+            <li>
+                <strong>Phản xạ tức thời (Instant Reflex):</strong> Một nhân vật có thể phản xạ tức thời với hiện tượng có tốc độ di chuyển (<span style="color: #FF6347;">Spd</span>) nằm trong giới hạn <strong style="color: #FFD700;">150%</strong> chỉ số <span style="color: #FF6347;">Ref</span> (Reflex - Phản Xạ) của họ.
+            </li>
+            <li>
+                <strong>Phản xạ chậm (Delayed Reflex):</strong> Một nhân vật sẽ phản xạ chậm với hiện tượng có <span style="color: #FF6347;">Spd</span> <strong style="color: #FFD700;">cao hơn 150% <span style="color: #FF6347;">Ref</span></strong> của họ, nhưng <strong style="color: #FFD700;">thấp hơn 200% <span style="color: #FF6347;">Ref</span></strong>.
+            </li>
+            <li>
+                <strong>Công thức tính thời gian Phản xạ chậm:</strong>
+                <div class="note-box" style="background-color: #1e2a38; border-color: #4a90e2; text-align: center;">
+                    <p style="font-size: 1.1em; color: #f0f0f0;">Thời gian (s) = ((<span style="color: #FF6347;">Spd</span> đối tượng / <span style="color: #FF6347;">Ref</span> bản thân) - <strong style="color: #FFD700;">1.5</strong>)  <strong style="color: #FFD700;">* 0.2</strong></p>
+                </div>
+            </li>
+            <li>
+                <span style="color: #4a90e2;">Ví dụ:</span> Nếu nhân vật A có <span style="color: #FF6347;">Ref</span> <strong style="color: #FFD700;">100</strong> phản xạ với nhân vật B di chuyển với <span style="color: #FF6347;">Spd</span> <strong style="color: #FFD700;">170</strong>, thời gian phản xạ chậm sẽ là: ((<strong style="color: #FFD700;">170</strong> / <strong style="color: #FFD700;">100</strong>) - <strong style="color: #FFD700;">1.5</strong>)  <strong style="color: #FFD700;">* 0.2</strong> = <strong style="color: #FFD700;">0.04s</strong>. Điều này có nghĩa là, sau khi B di chuyển được <strong style="color: #FFD700;">0.04s</strong> thì A mới nhận ra B đang di chuyển.
+            </li>
+        </ul>
+    </div>
+</details>
+
+<hr>

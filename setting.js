@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.getElementById(targetElementId);
             if (targetElement) {
                 targetElement.innerHTML = content;
+                // LƯU Ý: Đã XÓA logic JS để xử lý các accordion con (như patch-notes) 
+                // vì chúng ta chuyển sang dùng thẻ <details> (tự xử lý).
             } else {
                 console.error(`Target element with id "${targetElementId}" not found.`);
             }
@@ -31,15 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	loadContent('./content/role-guide.html', 'accordion-content-8');
 	loadContent('./content/build-profile-guide.html', 'accordion-content-9');
     loadContent('./content/main-mechanics.html', 'accordion-content-10');
-	loadContent('./content/deadline.html', 'accordion-content-deadline')
+	loadContent('./content/deadline.html', 'accordion-content-deadline');
+    
+    // Tải nội dung Update Patch
+    loadContent('./content/patch-notes.html', 'accordion-content-patch');
 	
 
-    // Xử lý chức năng đóng mở của các accordion
-    const mainAccordions = document.querySelectorAll('.main-accordion');
-    const nestedAccordions = document.querySelectorAll('.accordion');
-
-    // Chức năng cho accordion chính
-    mainAccordions.forEach(accordion => {
+    // Xử lý chức năng đóng mở của các accordion chính (.main-accordion)
+    document.querySelectorAll('.main-accordion').forEach(accordion => {
         const header = accordion.querySelector('.accordion-header');
         if (header) {
             header.addEventListener('click', () => {
@@ -48,8 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Chức năng cho các accordion con
-    nestedAccordions.forEach(accordion => {
+    // Xử lý chức năng đóng mở cho các accordion con (.accordion) có sẵn trong setting.html
+    // Chúng ta VẪN cần giữ logic này để xử lý các accordion con KHÔNG được tải động (từ 01 đến 09).
+    document.querySelectorAll('.accordion').forEach(accordion => {
         const header = accordion.querySelector('.accordion-header');
         if (header) {
             header.addEventListener('click', () => {

@@ -213,10 +213,12 @@ class SummaryGenerator {
         
         switch (raceValue) {
             case 'human':
-                passiveText = `6 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
+                // [UPDATE] Cooldown giảm từ 6 turn về 5 turn
+                passiveText = `5 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
                 break;
             case 'spirit':
-                passiveText = `3 turn một lần, cho phép tự động kháng 1 debuff / hiệu ứng bất kỳ phải nhận.`;
+                // [UPDATE] Trait của tinh linh đổi thành: Tăng 25% maxHP (hệ số nhân từ x8 lên x10)
+                passiveText = `Tăng 25% MaxHP.`;
                 break;
             case 'angel':
                 passiveText = `Cho phép bay lượn tự do.`;
@@ -240,23 +242,37 @@ class SummaryGenerator {
         const inf = parseInt(this.fields.inf.value) || 0;
         const ins = parseInt(this.fields.ins.value) || 0; // [UPDATE] Lấy stat INS
         const classValue = this.fields.class.value;
+        const raceValue = this.fields.race.value; 
 
-        const hpReal = hp * 8;
+        let hpBase = hp * 8;
+        // [UPDATE] Cập nhật HP thực cho Tinh linh: HP * 8 * 1.25 = HP * 10
+        let hpReal = (raceValue === 'spirit') ? Math.round(hpBase * 1.25) : hpBase;
+        
+        // [UPDATE] Tính hệ số nhân HP Recover: 1.25 cho Tinh linh, 1.0 cho các chủng tộc khác
+        const recoverMultiplier = (raceValue === 'spirit') ? 1.25 : 1.0; 
+
         const hpRatio = total > 0 ? hp / total : 0;
         let hpTurn;
         if (classValue === 'healer') {
-            hpTurn = Math.round(hp * 2.8); 
+            hpTurn = Math.round(hp * 2.8 * recoverMultiplier); 
         } else if (hpRatio >= 0.4) {
-            hpTurn = Math.round(hp * 2);
+            hpTurn = Math.round(hp * 2 * recoverMultiplier);
         } else {
-            hpTurn = Math.round(hp * 0.8);
+            hpTurn = Math.round(hp * 0.8 * recoverMultiplier);
         }
-        const hpTurnHealer = Math.round(hp * 2);
+        // [UPDATE] Giới hạn HP từ Healer cũng được nhân với recoverMultiplier
+        const hpTurnHealer = Math.round(hp * 2 * recoverMultiplier);
         
         const skillRange = Math.round(total * 0.5 * 10) / 10;
         const carryWeight = (pow + 2) * 5;
         const moveSpeed = spd + 20;
-        const reactSpeed = ref * 2 +40;
+        
+        // [UPDATE] Cập nhật giới hạn phản xạ
+        const refBase = ref * 2;
+        const reactSpeedInstant = Math.round(ref * 1.5 + 20); // Ref * 1.5
+        const reactSpeedMax = Math.round(ref * 2 + 20);         // Ref * 2
+        
+        const refSpeedDisplay = refBase + 40;
 
         const day = this.fields.day.value || "(chưa nhập)";
         const month = this.fields.month.value || "(chưa nhập)";
@@ -275,11 +291,13 @@ class SummaryGenerator {
         const genderDisplay = this.getSelectText(this.fields.gender);
         const raceDisplay = this.getSelectText(this.fields.race);
         const classDisplay = this.getSelectText(this.fields.class);
-        const raceValue = this.fields.race.value; 
+        
 
         return {
           total, hp, spd, ref, pow, def, grd, vit, inf, ins, classValue, raceValue, // [UPDATE] Trả về INS
-          hpReal, hpTurn, hpTurnHealer, skillRange, carryWeight, moveSpeed, reactSpeed,
+          hpReal, hpTurn, hpTurnHealer, skillRange, carryWeight, moveSpeed, 
+          // [UPDATE] Cập nhật các giá trị phản xạ mới
+          reactSpeedInstant, reactSpeedMax, refSpeedDisplay,
           day, month, year, age,
           kinetic, pressure, force,
           kineticExplanation: this.getExplanation("Kinetic", kinetic),
@@ -347,8 +365,11 @@ class SummaryGenerator {
       }
 
       html += `<p>Khối lượng tối đa có thể mang thêm: <span style="color:#4a90e2">${data.carryWeight} kg</span></p>
-        <p>Tốc độ di chuyển tối đa: <span style="color:#4a90e2">${data.moveSpeed} m/s</span></p>
-        <p>Tốc độ tối đa có thể phản xạ: <span style="color:#4a90e2">${data.reactSpeed} m/s (${data.reactSpeed - 40} SPD)</span></p>`;
+        <p>Tốc độ di chuyển tối đa: <span style="color:#4a90e2">${data.moveSpeed} m/s</span></p>`;
+      
+      // [UPDATE] Hiển thị giới hạn phản xạ mới
+      html += `<p>Giới hạn phản xạ tức thời: <span style="color:#4a90e2">${data.reactSpeedInstant} m/s (${data.ref *1.5} Spd)</span></p>
+        <p>Giới hạn tối đa có thể phản xạ: <span style="color:#4a90e2">${data.reactSpeedMax} m/s (${data.ref *2} Spd)</span></p>`;
 
       if (data.def > 0) {
         html += `<p>Năng lượng chống lại lực kéo đẩy tối đa tương đương: <span style="color:#4a90e2">${(data.def + 2) * 5} kg hoặc ${data.def} POW</span></p>`;
@@ -389,9 +410,11 @@ class SummaryGenerator {
         const getRacePassiveText = (raceValue) => {
             switch (raceValue) {
                 case 'human':
-                    return `6 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
+                    // [UPDATE] Cooldown giảm từ 6 turn về 5 turn
+                    return `5 turn một lần, cho phép tự động hồi phục 30% HP sau khi HP về 0.`;
                 case 'spirit':
-                    return `3 turn một lần, cho phép tự động kháng 1 debuff / hiệu ứng bất kỳ phải nhận.`;
+                    // [UPDATE] Trait của tinh linh đổi thành: Tăng 25% maxHP
+                    return `Tăng 25% MaxHP`;
                 case 'angel':
                     return `Cho phép bay lượn tự do.`;
                 default:
@@ -438,7 +461,8 @@ Lượng HP tối đa có thể nhận mỗi turn từ bản thân: ${data.hpTur
 
       text += `\nGiới hạn mang vác vật nặng: ${data.carryWeight} kg
 Tốc độ di chuyển tối đa: ${data.moveSpeed} m/s
-Tốc độ phản xạ: ${data.reactSpeed} m/s (${data.reactSpeed -40} SPD)`;
+Giới hạn phản xạ tức thời: ${data.reactSpeedInstant} m/s (${data.ref *1.5} Spd)
+Giới hạn tối đa có thể phản xạ: ${data.reactSpeedMax} m/s (${data.ref *2} Spd)`;
 
       if (data.def > 0) {
         text += `\nKhả năng chống lại lực kéo đẩy của bản thân: ${data.def} POW (DMG)`;
@@ -449,8 +473,8 @@ Tốc độ phản xạ: ${data.reactSpeed} m/s (${data.reactSpeed -40} SPD)`;
 
       // [UPDATE] Thêm thông tin từ INS vào text
       if (data.ins > 0) {
-        html += `<p>Khả năng trinh sát, phân tích của nhân vật (Insight): <span style="color:#4a90e2">${data.ins} Ins</span></p>`;
-        html += `<p>Khả năng phản trinh sát, phân tích của nhân vật (Obscurity): <span style="color:#4a90e2">${Math.round(data.ins * 0.8)} Obs</span></p>`;
+        text += `\nKhả năng trinh sát, phân tích của nhân vật (Insight): ${data.ins} Ins`;
+        text += `\nKhả năng phản trinh sát, phân tích của nhân vật (Obscurity): ${Math.round(data.ins * 0.8)} Obs`;
       }
 
       text += `\n
